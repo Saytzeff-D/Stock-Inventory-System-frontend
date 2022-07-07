@@ -6,11 +6,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-##Deployment server
+## Deployment server
 
 To view the deployed site, visit `http://daily-inventory-system.herokuapp.com`.
 
-##Backend Server
+## Backend Server
 
 It uses Mongo Express Server as its Database and Server Processor Respectively
 
