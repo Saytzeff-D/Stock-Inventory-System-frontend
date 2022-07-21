@@ -11,30 +11,27 @@ export class RegisterComponent implements OnInit {
   hide = true
   fullName = new FormControl('', Validators.required)
   email = new FormControl('', [Validators.required, Validators.email])
-  phone = new FormControl('', [Validators.required, Validators.maxLength(13)])
+  phone = new FormControl('', [Validators.required, Validators.maxLength(10)])
   pword = new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/g)])
-  confPword = new FormControl('', Validators.required)
 
   constructor(public nodeServer: NodeService) { }
-  public checkPword:boolean = false
+  public matchPwordError:boolean = true
+  public disableBtn = false
 
   ngOnInit(): void {
   }
 
-  confirmPword(){
-    if (this.pword.value== this.confPword) {
-      this.checkPword = false
-      alert()
-    } else {
-      this.checkPword = true
-    }
-  }
   register(){
-    let regObj = {fullName: this.fullName.value, email: this.email.value, phone: this.phone.value, pword: this.pword.value}
-    console.log(regObj)
-    this.nodeServer.register(regObj).subscribe((res)=>{
-      console.log(res)
-    })
+    if (this.fullName.value !== '' && this.email.value !== '' && this.phone.value !== '' && this.pword.value !== '') {
+      this.disableBtn = true
+      let regObj = {fullName: this.fullName.value, email: this.email.value, phone: '+234' + this.phone.value, pword: this.pword.value}
+      console.log(regObj)
+      this.nodeServer.register(regObj).subscribe((res)=>{
+        console.log(res)
+      })
+    } else {
+      console.log('Incomplete Form')
+    }
   }
 
 }
