@@ -1,0 +1,38 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav bg-dark text-warning" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <!-- <mat-toolbar class="text-warning"> -->
+      <div class="d-flex justify-content-center">
+        <img src="" alt="systemLogo" class="img-fluid">
+      </div>
+        <p class="text-center h6 pl-4 pr-5">System Menu</p>
+    <!-- </mat-toolbar> -->
+    <mat-nav-list>
+      <a  class="font-weight-bold text-warning" mat-list-item routerLinkActive="active" routerLink="overview">Overview</a>
+      <a  class="font-weight-bold text-warning" mat-list-item routerLinkActive="active" routerLink="purchases">Purchases</a>
+      <a  class="font-weight-bold text-warning" mat-list-item routerLinkActive="active" routerLink="sales">Sales</a>
+      <a  class="font-weight-bold text-warning" mat-list-item routerLinkActive="active" routerLink="others">Others</a>
+      <a  class="font-weight-bold text-warning" mat-list-item routerLinkActive="active" routerLink="developer">Developer's Zone</a>
+      <div class="d-flex flex-column">
+        <a  class="mt-auto font-weight-bold text-warning" routerLink="developer">Log out</a>
+      </div>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class="bg-warning">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span class="font-weight-bold">Daily-Inventory-System</span>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,103 @@
+<div class="container">
+  <p class="h5 font-weight-bold py-2">Overview</p>
+  <div class="row">
+    <div class="col-lg-3 col-md-6 mb-3">
+      <mat-card class="bg-dark text-warning">
+        <mat-card-content>
+          <mat-card-title>
+            Total Purchases
+          </mat-card-title>
+          <hr class="bg-warning">
+          <p class="h5">{{price | currency : 'NGN' : 'symbol-narrow'}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="col-lg-3 col-md-6 mb-3">
+      <mat-card class="bg-dark text-warning">
+        <mat-card-content>
+          <mat-card-title>
+            Total Sales
+          </mat-card-title>
+          <hr class="bg-warning">
+          <p class="h5">{{price | currency : 'NGN' : 'symbol-narrow'}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="col-lg-3 col-md-6 mb-3">
+      <mat-card class="bg-dark text-warning">
+        <mat-card-content>
+          <mat-card-title>
+            Profit
+          </mat-card-title>
+          <hr class="bg-warning">
+          <p class="h5">{{price | currency : 'NGN' : 'symbol-narrow'}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="col-lg-3 col-md-6 mb-3">
+      <mat-card class="bg-dark text-warning">
+        <mat-card-content>
+          <mat-card-title>
+            Loss
+          </mat-card-title>
+          <hr class="bg-warning">
+          <p class="h5">{{price | currency : 'NGN' : 'symbol-narrow'}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <p class="h5 font-weight-bold mt-5">Analysis</p>
+  <div class="row ">
+    <div class="col-lg-3 col-md-6 mb-3">
+      <mat-card class="bg-dark text-warning">
+        <mat-card-content>
+          <mat-card-title>
+            Turnover
+          </mat-card-title>
+          <hr class="bg-warning">
+          <p class="h5">{{price | currency : 'NGN' : 'symbol-narrow'}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="col-lg-3 col-md-6 mb-3">
+      <mat-card class="bg-dark text-warning">
+        <mat-card-content>
+          <mat-card-title>
+            % Profit
+          </mat-card-title>
+          <hr class="bg-warning">
+          <p class="h5">{{analysis | percent}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="col-lg-3 col-md-6 mb-3">
+      <mat-card class="bg-dark text-warning">
+        <mat-card-content>
+          <mat-card-title>
+            % Loss
+          </mat-card-title>
+          <hr class="bg-warning">
+          <p class="h5">{{analysis | percent}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="col-lg-3 col-md-6 mb-3">
+      <mat-card class="bg-dark text-warning">
+        <mat-card-content>
+          <mat-card-title>
+            Miscellaneous
+          </mat-card-title>
+          <hr class="bg-warning">
+          <p class="h5">{{analysis | percent}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

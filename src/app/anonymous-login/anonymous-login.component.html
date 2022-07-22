@@ -1,0 +1,24 @@
+<div>
+  <div class="pt-5 d-flex justify-content-center">
+    <div class="col-lg-4 col-md-5 col-sm-7 bg-white border shadow-lg">
+      <form class="p-5">
+        <p class="h5">Anonymous Login</p>
+        <div class="alert alert-danger" *ngIf="error !== ''">
+          <strong>{{error}}</strong>
+          <button class="close" (click)="this.error = ''">&times;</button>
+        </div>
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>App Secret Key</mat-label>
+          <input type="text" matInput [formControl]="secretKey" class="font-weight-bold" placeholder="*************">
+          <mat-error *ngIf="secretKey.hasError('required')">
+            Key is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <div class="form-row mt-2">
+          <button class="btn btn-warning btn-block font-weight-bold" (click)="enterSystem()" >Enter System Cli</button>
+        </div>
+        <p class="h6 py-2"><a class='text-warning' routerLink="/layout/login">Back to Login</a></p>
+      </form>
+    </div>
+  </div>
+</div>

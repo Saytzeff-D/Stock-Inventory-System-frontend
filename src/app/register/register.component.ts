@@ -12,7 +12,7 @@ export class RegisterComponent implements OnInit {
   fullName = new FormControl('', Validators.required)
   email = new FormControl('', [Validators.required, Validators.email])
   phone = new FormControl('', [Validators.required, Validators.maxLength(10)])
-  pword = new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/g)])
+  pword = new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(/^([A-Za-z]+)([_@!*&%#])([\d])$/g)])
 
   constructor(public nodeServer: NodeService) { }
   public matchPwordError:boolean = true

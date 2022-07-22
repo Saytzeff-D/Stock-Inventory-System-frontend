@@ -5,7 +5,7 @@
         <p class="h5">Create an Account Now!</p>
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>Full Name</mat-label>
-          <input type="text" matInput [formControl]="fullName" placeholder="Dikko Chinedu">
+          <input type="text" matInput [formControl]="fullName" class="font-weight-bold" placeholder="Dikko Chinedu">
           <mat-error *ngIf="fullName.hasError('required')">
             Full Name is <strong>required</strong>
           </mat-error>
@@ -13,7 +13,7 @@
 
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>Email</mat-label>
-          <input type="email" matInput [formControl]="email" placeholder="Ex. pat@example.com">
+          <input type="email" matInput [formControl]="email" class="font-weight-bold" placeholder="Ex. pat@example.com">
           <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
             Please enter a valid email address
           </mat-error>
@@ -24,8 +24,8 @@
 
         <mat-form-field class="w-100" appearance="outline">
           <mat-label>Phone</mat-label>
-          <span matPrefix>+234 &nbsp;</span>
-          <input type="text" matInput [formControl]="phone" placeholder="9087437621">
+          <span matPrefix class="'font-weight-bold">+234 &nbsp;</span>
+          <input type="text" matInput [formControl]="phone" class="font-weight-bold" placeholder="9087437621">
           <mat-error *ngIf="phone.hasError('maxlength') && !phone.hasError('required')">
             Enter a Valid Phone Number
           </mat-error>
@@ -33,18 +33,26 @@
             Phone Number is <strong>required</strong>
           </mat-error>
         </mat-form-field>
+
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>Create Password</mat-label>
-            <input [type]="hide ? 'password' : 'text'" matInput [formControl]="pword" placeholder="chinedu@31now">
-            <mat-error *ngIf="pword.hasError('pattern') && !pword.hasError('required')">
-              Password must contain special characters
+            <input [type]="hide ? 'password' : 'text'" matInput [formControl]="pword" class="font-weight-bold" placeholder="chinedu@31now">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="pword.hasError('pattern') && !pword.hasError('required')" >
+              Requires <strong>alphabets, one special characters and one number</strong>
             </mat-error>
             <mat-error *ngIf="pword.hasError('required')">
               Password is <strong>required</strong>
             </mat-error>
+            <mat-error *ngIf="!pword.hasError('pattern') && !pword.hasError('required')">
+              Password must be <strong>at least 8 characters</strong>
+            </mat-error>
           </mat-form-field>
-        <input type="checkbox" class="my-2" (click)="hide = !hide" /> Show Password
-        <button type="submit" (click)="register()" class="btn btn-warning font-weight-bold btn-block" [disabled]="disableBtn">Create Account</button>
+
+        <!-- <input type="radio" class="my-2" (click)="hide = !hide" /> Show Password -->
+        <button type="submit" (click)="register()" class="btn btn-warning font-weight-bold btn-block my-2" [disabled]="disableBtn">Create Account</button>
         <p class="h6 py-2">Have an Account? <a routerLink="/layout/login" class="text-warning">Login Now</a></p>
       </form>
     </div>
