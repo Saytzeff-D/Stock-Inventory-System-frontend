@@ -8,7 +8,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { MatCardModule } from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 
 
@@ -24,7 +29,12 @@ import { MatCardModule } from '@angular/material/card'
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatCardModule
+    MatCardModule,
+    MatMenuModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatProgressBarModule,
+    MatSnackBarModule
 
   ],
   exports: [
@@ -36,7 +46,12 @@ import { MatCardModule } from '@angular/material/card'
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatCardModule
+    MatCardModule,
+    MatMenuModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatProgressBarModule,
+    MatSnackBarModule
   ]
 })
 export class MaterialModule { }
