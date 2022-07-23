@@ -5,10 +5,14 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class NodeService {
+  public url = 'http://localhost:1000/'
 
   constructor(public http: HttpClient) { }
 
   register(obj:any){
-    return this.http.post('http://localhost:1000/user/register', obj)
+    return this.http.post(`${this.url}user/register`, obj)
+  }
+  addPurchase(purchase:any){
+    return this.http.post(`${this.url}purchases/addPurchase`, purchase)
   }
 }

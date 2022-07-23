@@ -3,11 +3,33 @@
     <div class="col-12 bg-white border">
       <div class="d-flex justify-content-between py-2">
         <p class="h6">Purchases</p>
-        <button mat-mini-fab color="accent">
+        <button mat-mini-fab color="accent" [matMenuTriggerFor]="menu" #menuTrigger>
           <mat-icon>add</mat-icon>
         </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item class="text-warning" (click)="openDialog()" ><h4 class="font-weight-bold">Add Purchase</h4></button>
+        </mat-menu>
       </div>
-      <input class="rounded-pill form-control col-lg-4 col-md-6 my-2">
+      <input class="rounded-pill form-control col-lg-3 col-md-6 my-2" placeholder="Filter Purchases">
+      <!-- Purchase Table -->
+        <table class="table-dark table-striped table-responsive">
+          <thead>
+            <tr>
+              <th>S/N</th>
+              <th>Stock Name</th>
+              <th>Quantity</th>
+              <th>Actual Cost Price</th>
+              <th>Unit Price</th>
+              <th>Selling Price</th>
+              <th>Expected Profit</th>
+              <th>% Profit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr></tr>
+          </tbody>
+        </table>
+      <!--Purchase Table  -->
     </div>
   </div>
 </div>
