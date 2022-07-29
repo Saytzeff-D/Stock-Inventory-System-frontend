@@ -4,10 +4,10 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
     <!-- <mat-toolbar class="text-warning"> -->
-      <div class="d-flex justify-content-center">
-        <img src="" alt="systemLogo" class="img-fluid">
+      <div class="d-flex justify-content-center p-3">
+        <img src="assets/download.jpg" alt="systemLogo" class="img-fluid rounded-circle">
       </div>
-        <p class="text-center h6 pl-4 pr-5">System Menu</p>
+        <p class="text-center h6 pl-4 pr-5">Inventory Menu</p>
     <!-- </mat-toolbar> -->
     <mat-nav-list>
       <a  class="font-weight-bold text-warning" mat-list-item routerLinkActive="active" routerLink="overview">Overview</a>
@@ -15,9 +15,7 @@
       <a  class="font-weight-bold text-warning" mat-list-item routerLinkActive="active" routerLink="sales">Sales</a>
       <a  class="font-weight-bold text-warning" mat-list-item routerLinkActive="active" routerLink="others">Others</a>
       <a  class="font-weight-bold text-warning" mat-list-item routerLinkActive="active" routerLink="developer">Developer's Zone</a>
-      <div class="d-flex flex-column">
-        <a  class="mt-auto font-weight-bold text-warning" routerLink="developer">Log out</a>
-      </div>
+      <a style='position:absolute; bottom: 0px' class="font-weight-bold text-warning py-2 mx-3" routerLink="developer">Log out</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
