@@ -1,9 +1,14 @@
 <mat-dialog-content>
   <form>
     <p class="h4">Add Purchases</p>
+    <mat-progress-bar color="accent" mode="query" class="mb-3" *ngIf="progressStatus"></mat-progress-bar>
+    <div class="alert alert-warning" *ngIf="errorStatus"> 
+      {{error}} 
+    </div>
+
     <mat-form-field class="col-md-4" color="accent">
       <mat-label>Stock Name</mat-label>
-      <input matInput [(ngModel)]="stockName" name="stockName" >
+      <input matInput [(ngModel)]="commodityName" name="stockName" >
     </mat-form-field>
 
     <mat-form-field class="col-md-4" color="accent">

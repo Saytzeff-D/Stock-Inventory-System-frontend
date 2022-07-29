@@ -12,23 +12,54 @@
       </div>
       <input class="rounded-pill form-control col-lg-3 col-md-6 my-2" placeholder="Filter Purchases">
       <!-- Purchase Table -->
-        <table class="table-dark table-striped table-responsive">
-          <thead>
-            <tr>
-              <th>S/N</th>
-              <th>Stock Name</th>
-              <th>Quantity</th>
-              <th>Actual Cost Price</th>
-              <th>Unit Price</th>
-              <th>Selling Price</th>
-              <th>Expected Profit</th>
-              <th>% Profit</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr></tr>
-          </tbody>
-        </table>
+        <div class="" *ngIf="PURCHASE_DATA.length !== 0">
+          <table class="table table-dark table-striped table-responsive text-center">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Commodity Name</th>
+                <th>Quantity</th>
+                <th>Quantity Type</th>
+                <th>WholeSale Price</th>
+                <th>Unit Price</th>
+                <th>Retail Price</th>
+                <th>Expected Profit</th>
+                <th>Created</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let i = index; let data of PURCHASE_DATA">
+                <td>{{i + 1}}</td>
+                <td> {{data.commodityName}} </td>
+                <td> {{data.qty}} </td>
+                <td> {{data.qtyType}} </td>
+                <td> {{data.wholesalePrice | currency : 'NGN' : 'symbol-narrow'}} </td>
+                <td> {{data.unitPrice | currency : 'NGN' : 'symbol-narrow'}} </td>
+                <td> {{data.retailPrice | currency : 'NGN' : 'symbol-narrow'}} </td>
+                <td> {{data.profit | currency : 'NGN' : 'symbol-narrow'}} </td>
+                <td> {{ data.created.split('T')[0] + ' ' + data.created.split('T')[1].split('Z')[0].split('.')[0] }} </td>
+                <td> 
+                  <div class="d-flex justify-content-between">
+                    <button class="btn btn-success"></button>
+                    <button class="btn btn-danger"></button>
+                  </div> 
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 15]"
+                        showFirstLastButtons
+                        aria-label="Select page of periodic elements"
+                        color="accent">
+          </mat-paginator>
+        </div>
+
+        <div class="alert alert-danger" *ngIf="PURCHASE_DATA.length == 0">
+          <strong>Notice</strong> Purchase Data is empty
+        </div>
+
       <!--Purchase Table  -->
     </div>
   </div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { NodeService } from '../services/node.service';
 
 @Component({
@@ -7,7 +9,8 @@ import { NodeService } from '../services/node.service';
   styleUrls: ['./add-purchases.component.css']
 })
 export class AddPurchasesComponent implements OnInit {
-  public stockName:String
+  myControl = new FormControl('')
+  public commodityName:String
   public qty:any
   public qtyType:String
   public wholesalePrice:any
@@ -15,8 +18,10 @@ export class AddPurchasesComponent implements OnInit {
   public retailPrice:any
   public profit:any
   public progressStatus:Boolean = false
+  public errorStatus:Boolean = false
+  public error:any;
 
-  constructor(public nodeServer: NodeService) { }
+  constructor(public nodeServer: NodeService, public dialogRef: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -41,7 +46,7 @@ export class AddPurchasesComponent implements OnInit {
     }else{}
   }
   emptyInput(){
-    this.stockName = ''
+    this.commodityName = ''
     this.qty = ''
     this.qtyType = ''
     this.wholesalePrice = ''
@@ -51,10 +56,30 @@ export class AddPurchasesComponent implements OnInit {
   }
   onDoneClick(){
     this.progressStatus = true
-    let purchases = { stockName: this.stockName, qty: this.qty, qtyType: this.qtyType, wholesalePrice: this.wholesalePrice, unitPrice: this.pricePerUnit, retailPrice: this.retailPrice, profit: this.profit }
+    let purchases = { commodityName: this.commodityName, qty: this.qty, qtyType: this.qtyType, wholesalePrice: this.wholesalePrice, unitPrice: this.pricePerUnit, retailPrice: this.retailPrice, profit: this.profit }
+    console.log(purchases)
     this.nodeServer.addPurchase(purchases).subscribe((res:any)=>{
-      this.emptyInput()
-      this.progressStatus = false
+      console.log(res)
+      if(res.err){
+        if(res.err.name == 'ValidationError'){
+          this.progressStatus = false
+          this.errorStatus = true
+          this.error = 'All fields are required'
+        }else if(!res.err.reason.stale){
+          this.progressStatus = false
+          this.errorStatus = true
+          this.error = 'Error due to network connectivity'
+        }else{}
+      }else if(res.message == 'Purchase Added Successfully'){
+        this.progressStatus = false
+        this.emptyInput()
+        this.dialogRef.closeAll()
+      }else{
+        this.progressStatus = false
+        this.errorStatus = true
+        this.error = 'An error has occured, pls try again'
+      }
+      // this.emptyInput()
     })
   }
 
