@@ -15,4 +15,7 @@ export class NodeService {
   addPurchase(purchase:any){
     return this.http.post(`${this.url}purchases/addPurchase`, purchase)
   }
+  getPurchase(){
+    return this.http.get(`${this.url}purchases/getPurchase`)
+  }
 }
