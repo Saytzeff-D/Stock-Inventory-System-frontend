@@ -2,13 +2,18 @@
   <form>
     <p class="h4">Add Purchases</p>
     <mat-progress-bar color="accent" mode="query" class="mb-3" *ngIf="progressStatus"></mat-progress-bar>
-    <div class="alert alert-warning" *ngIf="errorStatus"> 
-      {{error}} 
+    <div class="alert alert-warning" *ngIf="errorStatus">
+      <strong>{{error}} </strong>
     </div>
 
     <mat-form-field class="col-md-4" color="accent">
       <mat-label>Stock Name</mat-label>
-      <input matInput [(ngModel)]="commodityName" name="stockName" >
+      <input matInput [formControl]="commodityName" name="stockName" [matAutocomplete]="auto" >
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let each of filteredItems | async" [value]="each">
+          {{each}}
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
 
     <mat-form-field class="col-md-4" color="accent">

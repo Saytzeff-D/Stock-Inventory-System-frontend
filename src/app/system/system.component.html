@@ -5,7 +5,7 @@
       [opened]="(isHandset$ | async) === false">
     <!-- <mat-toolbar class="text-warning"> -->
       <div class="d-flex justify-content-center p-3">
-        <img src="assets/download.jpg" alt="systemLogo" class="img-fluid rounded-circle">
+        <img src="assets/logo.jpg" alt="systemLogo" class="img-fluid rounded-circle">
       </div>
         <p class="text-center h6 pl-4 pr-5">Inventory Menu</p>
     <!-- </mat-toolbar> -->
@@ -28,7 +28,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span class="font-weight-bold">Daily-Inventory-System</span>
+      <span class="font-weight-bold">Stock-Inventory-System</span>
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>

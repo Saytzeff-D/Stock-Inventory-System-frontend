@@ -1,66 +1,99 @@
-<div class="container">
-  <div class="row p-2 w-100">
-    <div class="col-12 bg-white border">
-      <div class="d-flex justify-content-between py-2">
-        <p class="h6">Purchases</p>
-        <button mat-mini-fab color="accent" [matMenuTriggerFor]="menu" #menuTrigger>
-          <mat-icon>add</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item class="text-warning" (click)="openDialog()" ><h4 class="font-weight-bold">Add Purchase</h4></button>
-        </mat-menu>
+<mat-tab-group color='accent'>
+  <mat-tab label="Purchases Overview">
+    <div class="container">
+
+      <div class="d-flex justify-content-between my-2">
+        <input class="rounded-pill form-control col-lg-3 col-md-6" placeholder="Filter Purchases">
+        <button class="btn btn-dark text-warning font-weight-bold d-none d-md-block">Refresh Now</button>
       </div>
-      <input class="rounded-pill form-control col-lg-3 col-md-6 my-2" placeholder="Filter Purchases">
+      <!-- Spinner -->
+      <mat-progress-spinner mode="indeterminate" color='accent' diameter="40" *ngIf="response == 'Loading'"></mat-progress-spinner>
       <!-- Purchase Table -->
-        <div class="" *ngIf="PURCHASE_DATA.length !== 0">
-          <table class="table table-dark table-striped table-responsive text-center">
-            <thead>
-              <tr>
-                <th>No.</th>
-                <th>Commodity Name</th>
-                <th>Quantity</th>
-                <th>Quantity Type</th>
-                <th>WholeSale Price</th>
-                <th>Unit Price</th>
-                <th>Retail Price</th>
-                <th>Expected Profit</th>
-                <th>Created</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let i = index; let data of PURCHASE_DATA">
-                <td>{{i + 1}}</td>
-                <td> {{data.commodityName}} </td>
-                <td> {{data.qty}} </td>
-                <td> {{data.qtyType}} </td>
-                <td> {{data.wholesalePrice | currency : 'NGN' : 'symbol-narrow'}} </td>
-                <td> {{data.unitPrice | currency : 'NGN' : 'symbol-narrow'}} </td>
-                <td> {{data.retailPrice | currency : 'NGN' : 'symbol-narrow'}} </td>
-                <td> {{data.profit | currency : 'NGN' : 'symbol-narrow'}} </td>
-                <td> {{ data.created.split('T')[0] + ' ' + data.created.split('T')[1].split('Z')[0].split('.')[0] }} </td>
-                <td> 
-                  <div class="d-flex justify-content-between">
-                    <button class="btn btn-success"></button>
-                    <button class="btn btn-danger"></button>
-                  </div> 
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="" *ngIf="PURCHASE_DATA.length !== 0" >
+        <table class="table table-dark table-striped table-responsive text-center">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Commodity Name</th>
+              <th>Quantity</th>
+              <th>Quantity Type</th>
+              <th>WholeSale Price</th>
+              <th>Unit Price</th>
+              <th>Retail Price</th>
+              <th>Expected Profit</th>
+              <th>Created</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let i = index; let data of PURCHASE_DATA">
+              <td>{{i + 1}}</td>
+              <td> {{data.commodityName}} </td>
+              <td> {{data.qty}} </td>
+              <td> {{data.qtyType}} </td>
+              <td> {{data.wholesalePrice | currency : 'NGN' : 'symbol-narrow'}} </td>
+              <td> {{data.unitPrice | currency : 'NGN' : 'symbol-narrow'}} </td>
+              <td> {{data.retailPrice | currency : 'NGN' : 'symbol-narrow'}} </td>
+              <td> {{data.profit | currency : 'NGN' : 'symbol-narrow'}} </td>
+              <td> {{ data.created.split('T')[0] | date }} {{ data.created.split('T')[1].split('Z')[0].split('.')[0]  }} </td>
+              <td>
+                <div class="d-flex justify-content-between">
+                  <button class="btn btn-success m-1"> <i class="fa fa-edit"></i> </button>
+                  <button class="btn btn-danger m-1"> <i class="fa fa-trash"></i> </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-          <mat-paginator [pageSizeOptions]="[5, 10, 15]"
-                        showFirstLastButtons
-                        aria-label="Select page of periodic elements"
-                        color="accent">
-          </mat-paginator>
-        </div>
+        <mat-paginator [pageSizeOptions]="[5, 10, 15]"
+                      showFirstLastButtons
+                      aria-label="Select page of periodic elements"
+                      color="accent">
+        </mat-paginator>
+      </div>
 
-        <div class="alert alert-danger" *ngIf="PURCHASE_DATA.length == 0">
-          <strong>Notice</strong> Purchase Data is empty
-        </div>
+      <div class="alert alert-danger" *ngIf="response == '' && PURCHASE_DATA.length == 0">
+        <strong>Notice</strong> Purchase Data is empty
+      </div>
 
+      <div class="alert alert-danger" *ngIf="PURCHASE_DATA.length == 0 && response !== 'Loading'">
+        <strong>Notice</strong> {{response}}
+      </div>
       <!--Purchase Table  -->
     </div>
-  </div>
-</div>
+  </mat-tab>
+
+  <mat-tab label="Add Purchases & Analysis">
+    <div class="container-fluid">
+      <div class="row p-2">
+        <div class="col-12 bg-white border">
+          <div class="d-flex justify-content-between py-2">
+            <p class="h6">Purchases</p>
+            <button mat-mini-fab color="accent" [matMenuTriggerFor]="menu" #menuTrigger>
+              <mat-icon>add</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item class="text-warning" (click)="openDialog()" ><h4 class="font-weight-bold">Add Purchase</h4></button>
+            </mat-menu>
+          </div>
+          <!-- Purchase Cards -->
+          <div class="row w-100 mx-0">
+            <div class="col-lg-3 col-md-6 mt-3" *ngFor="let i = index; let each of PURCHASE_DATA">
+              <mat-card *ngIf="i <= 16">
+                <mat-card-content>
+                  <mat-card-title>
+                    <p class="h5">{{each.commodityName}}</p>
+                  </mat-card-title>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <p class="h6 font-weight-bold">A  total of {{PURCHASE_DATA.length}} purchases in stock</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>

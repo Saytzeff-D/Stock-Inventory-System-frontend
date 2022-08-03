@@ -1,16 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { map, Observable, startWith } from 'rxjs';
 import { NodeService } from '../services/node.service';
 
+export interface DialogData {
+  stockArr: ['']
+}
 @Component({
   selector: 'app-add-purchases',
   templateUrl: './add-purchases.component.html',
   styleUrls: ['./add-purchases.component.css']
 })
+
 export class AddPurchasesComponent implements OnInit {
-  myControl = new FormControl('')
-  public commodityName:String
+  commodityName = new FormControl('')
+  // public commodityName:String
   public qty:any
   public qtyType:String
   public wholesalePrice:any
@@ -20,10 +26,19 @@ export class AddPurchasesComponent implements OnInit {
   public progressStatus:Boolean = false
   public errorStatus:Boolean = false
   public error:any;
+  filteredItems: Observable<string[]>
 
-  constructor(public nodeServer: NodeService, public dialogRef: MatDialog) { }
+  constructor(public snackbar: MatSnackBar, public nodeServer: NodeService, public dialogRef: MatDialog, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   ngOnInit(): void {
+    this.filteredItems = this.commodityName.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || ''))
+    )
+  }
+  private _filter (value: string): string [] {
+    const filterValue = value.toLowerCase()
+    return this.data.stockArr.filter(each => each.toLowerCase().includes(filterValue))
   }
 
   onChangeOfWholesale(){
@@ -46,7 +61,6 @@ export class AddPurchasesComponent implements OnInit {
     }else{}
   }
   emptyInput(){
-    this.commodityName = ''
     this.qty = ''
     this.qtyType = ''
     this.wholesalePrice = ''
@@ -56,7 +70,8 @@ export class AddPurchasesComponent implements OnInit {
   }
   onDoneClick(){
     this.progressStatus = true
-    let purchases = { commodityName: this.commodityName, qty: this.qty, qtyType: this.qtyType, wholesalePrice: this.wholesalePrice, unitPrice: this.pricePerUnit, retailPrice: this.retailPrice, profit: this.profit }
+    this.errorStatus = false
+    let purchases = { commodityName: this.commodityName.value, qty: this.qty, qtyType: this.qtyType, wholesalePrice: this.wholesalePrice, unitPrice: this.pricePerUnit, retailPrice: this.retailPrice, profit: this.profit }
     console.log(purchases)
     this.nodeServer.addPurchase(purchases).subscribe((res:any)=>{
       console.log(res)
@@ -74,6 +89,7 @@ export class AddPurchasesComponent implements OnInit {
         this.progressStatus = false
         this.emptyInput()
         this.dialogRef.closeAll()
+        this.snackbar.open('Purchase Added Successfully', 'Undo', {duration: 3000})
       }else{
         this.progressStatus = false
         this.errorStatus = true

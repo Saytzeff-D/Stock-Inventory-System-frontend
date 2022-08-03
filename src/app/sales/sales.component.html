@@ -1,1 +1,54 @@
-<p>sales works!</p>
+<mat-stepper color="accent">
+  <mat-step>
+    <ng-template matStepLabel>Add Sales</ng-template>
+    <form class="container p-5" [formGroup]="salesForm" (ngSubmit)="addSales()" >
+      <p class="display-4">Add Sales</p>
+      <!-- <div class="row w-100 mx-0">
+        <mat-form-field class="col-md-3 col-6">
+          <mat-label>Customer Name</mat-label>
+          <input matInput name="customerName" formControlName="customerName" >
+        </mat-form-field>
+      </div> -->
+
+      <div formArrayName="items">
+        <div *ngFor="let i = index; let itemForm of items.controls">
+          <div >
+            <p class="h5">Item {{i + 1}}</p>
+            <mat-form-field class="col-md-3 col-6">
+              <mat-label>Stock Name</mat-label>
+              <input matInput name="stockName" formControlName="stockName" >
+            </mat-form-field>
+            <mat-form-field class="col-md-3 col-6">
+              <mat-label>Quantity</mat-label>
+              <input matInput name="qty" formControlName="qty" >
+            </mat-form-field>
+            <mat-form-field class="col-md-3 col-6">
+              <mat-label>Actual Price</mat-label>
+              <input matInput readonly name="actualPrice" formControlName="actualPrice" >
+            </mat-form-field>
+            <mat-form-field class="col-md-3 col-6" floatLabel="always">
+              <mat-label>Paid Amount</mat-label>
+              <input type="number" matInput placeholder="0" class="example-right-align" name="paidAmount" formControlName="paidAmount" >
+              <span matPrefix>$&nbsp;</span>
+              <span matSuffix>.00</span>
+            </mat-form-field>
+            <mat-form-field class="col-md-3 col-6" floatLabel="always">
+              <mat-label>Amount on Credit</mat-label>
+              <input type="number" matInput placeholder="0" class="example-right-align" readonly name="creditAmount" formControlName="creditAmount" >
+              <span matPrefix>$&nbsp;</span>
+              <span matSuffix>.00</span>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <button mat-raised-button color="accent" class="d-block">Add Sales</button>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Sales Overview</ng-template>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Sales History</ng-template>
+  </mat-step>
+</mat-stepper>
