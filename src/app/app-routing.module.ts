@@ -8,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { AnonymousLoginComponent } from './anonymous-login/anonymous-login.component';
 import { SystemOverviewComponent } from './system-overview/system-overview.component';
 import { PurchasesComponent } from './purchases/purchases.component';
+import { SalesComponent } from './sales/sales.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'layout/login', pathMatch: 'full'},
@@ -18,7 +19,8 @@ const routes: Routes = [
   ]},
   {path: 'system', component: SystemComponent, children: [
     {path: 'overview', component: SystemOverviewComponent},
-    {path: 'purchases', component: PurchasesComponent}
+    {path: 'purchases', component: PurchasesComponent},
+    {path:'sales', component: SalesComponent}
   ]},
   {path: '**', component: NotFoundComponent}
 ];
