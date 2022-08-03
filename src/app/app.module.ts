@@ -18,6 +18,7 @@ import { PurchasesComponent } from './purchases/purchases.component';
 import { SalesComponent } from './sales/sales.component';
 import { AnonymousLoginComponent } from './anonymous-login/anonymous-login.component';
 import { AddPurchasesComponent } from './add-purchases/add-purchases.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AddPurchasesComponent } from './add-purchases/add-purchases.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    FontAwesomeModule,
     MaterialModule
   ],
   providers: [],

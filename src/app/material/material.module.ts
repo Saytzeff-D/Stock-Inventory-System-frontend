@@ -16,6 +16,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatTabsModule } from '@angular/material/tabs'
 
 
 
@@ -38,7 +42,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatProgressBarModule,
     MatSnackBarModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatAutocompleteModule,
+    MatStepperModule,
+    MatTabsModule
 
   ],
   exports: [
@@ -57,7 +65,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatProgressBarModule,
     MatSnackBarModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatAutocompleteModule,
+    MatStepperModule,
+    MatTabsModule
   ]
 })
 export class MaterialModule { }
