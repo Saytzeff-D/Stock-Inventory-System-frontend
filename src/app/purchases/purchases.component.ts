@@ -2,8 +2,6 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu'
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTableDataSource } from '@angular/material/table';
 import { AddPurchasesComponent } from '../add-purchases/add-purchases.component';
 import { NodeService } from '../services/node.service';
 
@@ -46,7 +44,7 @@ export class PurchasesComponent implements OnInit, AfterViewInit {
       }
     }, (error:any)=>{
       console.log(error)
-      this.response = 'Server Error, Pls refresh this page'
+      this.response = 'This is an error due to network connectivity'
     })
   }
 
@@ -67,6 +65,10 @@ export class PurchasesComponent implements OnInit, AfterViewInit {
       this.ngOnInit()
       this.menuTrigger.focus()
     })
+  }
+  refreshNow(){
+    this.response = 'Loading'
+    this.ngOnInit()
   }
 
 

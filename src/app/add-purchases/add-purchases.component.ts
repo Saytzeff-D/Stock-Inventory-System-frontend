@@ -80,11 +80,15 @@ export class AddPurchasesComponent implements OnInit {
           this.progressStatus = false
           this.errorStatus = true
           this.error = 'All fields are required'
-        }else if(!res.err.reason.stale){
+        }else if(res.err == {}){
+          this.progressStatus = false
+          this.errorStatus = true
+          this.error = 'An error has occured, pls try again'
+        }else{
           this.progressStatus = false
           this.errorStatus = true
           this.error = 'Error due to network connectivity'
-        }else{}
+        }
       }else if(res.message == 'Purchase Added Successfully'){
         this.progressStatus = false
         this.emptyInput()

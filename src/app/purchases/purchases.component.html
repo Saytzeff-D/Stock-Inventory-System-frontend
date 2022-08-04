@@ -4,7 +4,7 @@
 
       <div class="d-flex justify-content-between my-2">
         <input class="rounded-pill form-control col-lg-3 col-md-6" placeholder="Filter Purchases">
-        <button class="btn btn-dark text-warning font-weight-bold d-none d-md-block">Refresh Now</button>
+        <button mat-raised-button color="primary" class="text-warning font-weight-bold d-none d-md-block" (click)="refreshNow()" >Refresh Now</button>
       </div>
       <!-- Spinner -->
       <mat-progress-spinner mode="indeterminate" color='accent' diameter="40" *ngIf="response == 'Loading'"></mat-progress-spinner>
