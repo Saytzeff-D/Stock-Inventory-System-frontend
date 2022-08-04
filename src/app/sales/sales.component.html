@@ -2,39 +2,52 @@
   <mat-step>
     <ng-template matStepLabel>Add Sales</ng-template>
     <form class="container p-5" [formGroup]="salesForm" (ngSubmit)="addSales()" >
+      <div *ngIf="error !== ''" class="alert alert-danger">
+        <strong>Error</strong> {{error}}
+      </div>
       <p class="display-4">Add Sales</p>
-      <!-- <div class="row w-100 mx-0">
-        <mat-form-field class="col-md-3 col-6">
+      <div class="row w-100 mx-0">
+        <mat-form-field class="col-lg-3 col-md-6">
           <mat-label>Customer Name</mat-label>
           <input matInput name="customerName" formControlName="customerName" >
         </mat-form-field>
-      </div> -->
+      </div>
 
       <div formArrayName="items">
         <div *ngFor="let i = index; let itemForm of items.controls">
-          <div >
-            <p class="h5">Item {{i + 1}}</p>
-            <mat-form-field class="col-md-3 col-6">
+          <div [formGroupName]="i" >
+            <div class="d-flex justify-content-between">
+              <p class="h5">Item {{i + 1}}</p>
+              <button type="button" mat-mini-fab color="accent" (click)="removeItem(i)" >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            <mat-form-field class="col-md-4" color="accent">
               <mat-label>Stock Name</mat-label>
-              <input matInput name="stockName" formControlName="stockName" >
+              <input matInput formControlName="commodityName" name="stockName" [matAutocomplete]="auto" >
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let each of filteredItems | async" [value]="each">
+                  {{each}}
+                </mat-option>
+              </mat-autocomplete>
             </mat-form-field>
-            <mat-form-field class="col-md-3 col-6">
+            <mat-form-field color="accent" class="col-md-3">
               <mat-label>Quantity</mat-label>
-              <input matInput name="qty" formControlName="qty" >
+              <input matInput name="qty" formControlName="qty" (keyup)="onQtyChange(i)" >
             </mat-form-field>
-            <mat-form-field class="col-md-3 col-6">
+            <mat-form-field color="accent" class="col-md-3">
               <mat-label>Actual Price</mat-label>
-              <input matInput readonly name="actualPrice" formControlName="actualPrice" >
+              <input matInput name="actualPrice" class="disable" formControlName="actualPrice" readonly >
             </mat-form-field>
-            <mat-form-field class="col-md-3 col-6" floatLabel="always">
+            <mat-form-field color="accent" class="col-md-3" floatLabel="always">
               <mat-label>Paid Amount</mat-label>
               <input type="number" matInput placeholder="0" class="example-right-align" name="paidAmount" formControlName="paidAmount" >
               <span matPrefix>$&nbsp;</span>
               <span matSuffix>.00</span>
             </mat-form-field>
-            <mat-form-field class="col-md-3 col-6" floatLabel="always">
+            <mat-form-field color="accent" class="col-md-3" floatLabel="always">
               <mat-label>Amount on Credit</mat-label>
-              <input type="number" matInput placeholder="0" class="example-right-align" readonly name="creditAmount" formControlName="creditAmount" >
+              <input type="number" matInput placeholder="0" class="example-right-align" name="creditAmount" formControlName="creditAmount" readonly >
               <span matPrefix>$&nbsp;</span>
               <span matSuffix>.00</span>
             </mat-form-field>
@@ -42,7 +55,12 @@
         </div>
       </div>
 
-      <button mat-raised-button color="accent" class="d-block">Add Sales</button>
+      <div class="d-flex">
+        <button type="submit" mat-raised-button color="accent" class="mx-1"  >Add Sales</button>
+        <button type="button" mat-mini-fab color="accent" class="mx-1" (click)="addMoreItem()" >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
     </form>
   </mat-step>
   <mat-step>
