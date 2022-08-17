@@ -10,54 +10,97 @@
       <mat-progress-spinner mode="indeterminate" color='accent' diameter="40" *ngIf="response == 'Loading'"></mat-progress-spinner>
       <!-- Purchase Table -->
       <div class="" *ngIf="PURCHASE_DATA.length !== 0" >
-        <table class="table table-dark table-striped table-responsive text-center">
-          <thead>
-            <tr>
-              <th>No.</th>
-              <th>Commodity Name</th>
-              <th>Quantity</th>
-              <th>Quantity Type</th>
-              <th>WholeSale Price</th>
-              <th>Unit Price</th>
-              <th>Retail Price</th>
-              <th>Expected Profit</th>
-              <th>Created</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let i = index; let data of PURCHASE_DATA">
-              <td>{{i + 1}}</td>
-              <td> {{data.commodityName}} </td>
-              <td> {{data.qty}} </td>
-              <td> {{data.qtyType}} </td>
-              <td> {{data.wholesalePrice | currency : 'NGN' : 'symbol-narrow'}} </td>
-              <td> {{data.unitPrice | currency : 'NGN' : 'symbol-narrow'}} </td>
-              <td> {{data.retailPrice | currency : 'NGN' : 'symbol-narrow'}} </td>
-              <td> {{data.profit | currency : 'NGN' : 'symbol-narrow'}} </td>
-              <td> {{ data.created.split('T')[0] | date }} {{ data.created.split('T')[1].split('Z')[0].split('.')[0]  }} </td>
-              <td>
-                <div class="d-flex justify-content-between">
-                  <button class="btn btn-success m-1"> <i class="fa fa-edit"></i> </button>
-                  <button class="btn btn-danger m-1"> <i class="fa fa-trash"></i> </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="example-container mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" class="table-responsive-lg">
 
-        <mat-paginator [pageSizeOptions]="[5, 10, 15]"
-                      showFirstLastButtons
-                      aria-label="Select page of periodic elements"
-                      color="accent">
-        </mat-paginator>
+            <!-- CommodityName Column -->
+            <ng-container matColumnDef="commodityName">
+              <th mat-header-cell *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let element">
+                <span class="mobile-label">Name</span>
+                {{element.commodityName}}
+              </td>
+            </ng-container>
+
+            <!-- Quantity Column -->
+            <ng-container matColumnDef="qty">
+              <th mat-header-cell *matHeaderCellDef> Quanitty </th>
+              <td mat-cell *matCellDef="let element">
+                <span class="mobile-label">Quantity</span>
+                {{element.qty}}
+              </td>
+            </ng-container>
+
+            <!-- Qty Type Column -->
+            <ng-container matColumnDef="qtyType">
+              <th mat-header-cell *matHeaderCellDef> Qty Type </th>
+              <td mat-cell *matCellDef="let element">
+                <span class="mobile-label">Quantity Type</span>
+                {{element.qtyType}}
+              </td>
+            </ng-container>
+
+            <!-- Wholesale Column -->
+            <ng-container matColumnDef="wholesalePrice">
+              <th mat-header-cell *matHeaderCellDef> Wholesale Price </th>
+              <td mat-cell *matCellDef="let element">
+                <span class="mobile-label">Wholesale Price</span>
+                {{element.wholesalePrice | currency : 'NGN' : 'symbol-narrow'}}
+              </td>
+            </ng-container>
+
+            <!-- Unit Price Column -->
+            <ng-container matColumnDef="unitPrice">
+              <th mat-header-cell *matHeaderCellDef> Unit Price </th>
+              <td mat-cell *matCellDef="let element">
+                <span class="mobile-label">Unit Price</span>
+                {{element.unitPrice | currency : 'NGN' : 'symbol-narrow'}}
+              </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="retailPrice">
+              <th mat-header-cell *matHeaderCellDef> Retail Price </th>
+              <td mat-cell *matCellDef="let element">
+                <span class="mobile-label">Retail Price</span>
+                {{element.retailPrice | currency : 'NGN' : 'symbol-narrow'}}
+              </td>
+            </ng-container>
+
+            <!-- Profit Column -->
+            <ng-container matColumnDef="profit">
+              <th mat-header-cell *matHeaderCellDef> Profit </th>
+              <td mat-cell *matCellDef="let element">
+                <span class="mobile-label">Profit</span>
+                {{element.profit | currency : 'NGN' : 'symbol-narrow'}}
+              </td>
+            </ng-container>
+
+            <!-- Created Column -->
+            <ng-container matColumnDef="created">
+              <th mat-header-cell *matHeaderCellDef> Created </th>
+              <td mat-cell *matCellDef="let element">
+                <span class="mobile-label">Created</span>
+                {{ element.created.split('T')[0] | date }} {{ element.created.split('T')[1].split('Z')[0].split('.')[0]  }}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                         showFirstLastButtons
+                         aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>
       </div>
 
-      <div class="alert alert-danger" *ngIf="response == '' && PURCHASE_DATA.length == 0">
+      <div class="alert alert-danger" *ngIf="response == 'Fetched' && PURCHASE_DATA.length == 0">
         <strong>Notice</strong> Purchase Data is empty
       </div>
 
-      <div class="alert alert-danger" *ngIf="PURCHASE_DATA.length == 0 && response !== 'Loading'">
+      <div class="alert alert-danger" *ngIf="PURCHASE_DATA.length == 0 && response !== 'Loading' && response !== 'Fetched'">
         <strong>Notice</strong> {{response}}
       </div>
       <!--Purchase Table  -->
