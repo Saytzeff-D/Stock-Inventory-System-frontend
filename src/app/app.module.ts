@@ -18,7 +18,9 @@ import { PurchasesComponent } from './purchases/purchases.component';
 import { SalesComponent } from './sales/sales.component';
 import { AnonymousLoginComponent } from './anonymous-login/anonymous-login.component';
 import { AddPurchasesComponent } from './add-purchases/add-purchases.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment'
 
 @NgModule({
   declarations: [
@@ -43,7 +45,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
     FormsModule,
     HttpClientModule,
     FontAwesomeModule,
-    MaterialModule
+    MaterialModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
