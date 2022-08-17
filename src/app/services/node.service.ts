@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NodeService {
   public url = 'http://localhost:1000/'
+  public arrayOfPurchases = new BehaviorSubject([])
 
   constructor(public http: HttpClient) { }
 

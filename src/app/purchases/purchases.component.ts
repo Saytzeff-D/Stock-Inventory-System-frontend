@@ -4,6 +4,7 @@ import { MatMenuTrigger } from '@angular/material/menu'
 import { MatPaginator } from '@angular/material/paginator';
 import { AddPurchasesComponent } from '../add-purchases/add-purchases.component';
 import { NodeService } from '../services/node.service';
+import {MatTableDataSource} from '@angular/material/table';
 
 export interface PurchaseElement {
   commodityName: string;
@@ -21,13 +22,23 @@ export interface PurchaseElement {
   styleUrls: ['./purchases.component.css']
 })
 export class PurchasesComponent implements OnInit, AfterViewInit {
-  public PURCHASE_DATA: PurchaseElement[] = [ ];
-  public dataSource:any
+  public PURCHASE_DATA: PurchaseElement[] = [
+    {commodityName: "Rice",
+    created: "2022-08-17T09:16:29.105Z",
+    profit: "4851",
+    qty: "33",
+    qtyType: "Congos",
+    retailPrice: "950",
+    unitPrice: "803",
+    wholesalePrice: "26500"}
+   ];
+  // public dataSource:any
   public response:any = 'Loading'
   public stockArr:Array<[]> = []
+  dataSource = new MatTableDataSource<PurchaseElement>(this.PURCHASE_DATA);
 
   constructor(public dialog: MatDialog, public nodeServer: NodeService) { }
-  displayedColumns: string[] = ['position', 'stockName', 'qty', 'qtyType', 'wholesalePrice', 'unitPrice', 'retailPrice', 'profit'];
+  displayedColumns: string[] = ['commodityName', 'qty', 'qtyType', 'wholesalePrice', 'unitPrice', 'retailPrice', 'profit', 'created'];
 
   @ViewChild('menuTrigger') menuTrigger: MatMenuTrigger;
   @ViewChild(MatPaginator) paginator: MatPaginator
@@ -37,8 +48,9 @@ export class PurchasesComponent implements OnInit, AfterViewInit {
       console.log(res)
       if(res.purchases){
         this.PURCHASE_DATA = res.purchases
-        this.response = ''
+        this.response = 'Fetched'
         this.iterateStock()
+        // this.dataSource.paginator = this.paginator
       }else{
         this.response = 'Server Error, Pls refresh this page'
       }
@@ -49,7 +61,7 @@ export class PurchasesComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-      // this.dataSource.paginator = this.paginator
+      this.dataSource.paginator = this.paginator
   }
 
   iterateStock(){
