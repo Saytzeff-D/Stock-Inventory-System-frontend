@@ -1,6 +1,6 @@
 {
-  "name": "daily-inventory-app",
-  "short_name": "daily-inventory-app",
+  "name": "Stock Inventory Mangement System",
+  "short_name": "SIMS",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
