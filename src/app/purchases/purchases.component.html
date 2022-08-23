@@ -9,7 +9,7 @@
       <!-- Spinner -->
       <mat-progress-spinner mode="indeterminate" color='accent' diameter="40" *ngIf="response == 'Loading'"></mat-progress-spinner>
       <!-- Purchase Table -->
-      <div class="" *ngIf="PURCHASE_DATA.length !== 0" >
+      <div class="" *ngIf="PURCHASE_DATA.length !== 0 && response == 'Fetched'" >
         <div class="example-container mat-elevation-z8">
           <table mat-table [dataSource]="dataSource" class="table-responsive-lg">
 

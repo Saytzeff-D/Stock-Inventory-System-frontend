@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu'
 import { MatPaginator } from '@angular/material/paginator';
 import { AddPurchasesComponent } from '../add-purchases/add-purchases.component';
 import { NodeService } from '../services/node.service';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 
 export interface PurchaseElement {
   commodityName: string;
@@ -21,17 +21,8 @@ export interface PurchaseElement {
   templateUrl: './purchases.component.html',
   styleUrls: ['./purchases.component.css']
 })
-export class PurchasesComponent implements OnInit, AfterViewInit {
-  public PURCHASE_DATA: PurchaseElement[] = [
-    {commodityName: "Rice",
-    created: "2022-08-17T09:16:29.105Z",
-    profit: "4851",
-    qty: "33",
-    qtyType: "Congos",
-    retailPrice: "950",
-    unitPrice: "803",
-    wholesalePrice: "26500"}
-   ];
+export class PurchasesComponent implements OnInit {
+  public PURCHASE_DATA: PurchaseElement[] = [ ];
   // public dataSource:any
   public response:any = 'Loading'
   public stockArr:Array<[]> = []
@@ -45,12 +36,14 @@ export class PurchasesComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.nodeServer.getPurchase().subscribe((res:any)=>{
-      console.log(res)
       if(res.purchases){
         this.PURCHASE_DATA = res.purchases
-        this.response = 'Fetched'
+        this.dataSource = new MatTableDataSource<PurchaseElement>(res.purchases)
         this.iterateStock()
-        // this.dataSource.paginator = this.paginator
+        this.response = 'Fetched'
+        setTimeout(()=>{
+          this.dataSource.paginator = this.paginator
+        }, 1000)
       }else{
         this.response = 'Server Error, Pls refresh this page'
       }
@@ -60,17 +53,16 @@ export class PurchasesComponent implements OnInit, AfterViewInit {
     })
   }
 
-  ngAfterViewInit(): void {
-      this.dataSource.paginator = this.paginator
+  subscribePurchaseArray(){
+    this.dataSource.paginator = this.paginator
   }
-
   iterateStock(){
     this.PURCHASE_DATA.map((each:any)=>{
       this.stockArr.push(each.commodityName)
     })
   }
   openDialog(){
-    const dialogRef = this.dialog.open(AddPurchasesComponent, {restoreFocus: false, width: '600px', data: {stockArr: this.stockArr}})
+    const dialogRef = this.dialog.open(AddPurchasesComponent, { restoreFocus: false, width: '600px', data: { stockArr: this.stockArr } })
 
     dialogRef.afterClosed().subscribe((result) =>{
       this.stockArr = []
