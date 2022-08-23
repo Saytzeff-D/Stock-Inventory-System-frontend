@@ -1,7 +1,7 @@
 <mat-dialog-content>
   <form>
     <p class="h4">Add Purchases</p>
-    <mat-progress-bar color="accent" mode="query" class="mb-3" *ngIf="progressStatus"></mat-progress-bar>
+    <mat-progress-bar color="accent" mode="indeterminate" class="mb-3" *ngIf="progressStatus"></mat-progress-bar>
     <div class="alert alert-warning" *ngIf="errorStatus">
       <strong>{{error}} </strong>
     </div>
