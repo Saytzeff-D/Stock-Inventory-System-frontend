@@ -22,16 +22,24 @@
                 <mat-icon>delete</mat-icon>
               </button>
             </div>
-            <mat-form-field class="col-md-4" color="accent">
+            <mat-form-field class="col-md-3" color="accent">
               <mat-label>Stock Name</mat-label>
               <input matInput formControlName="commodityName" name="stockName" [matAutocomplete]="auto" >
-              <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let each of filteredItems | async" [value]="each">
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="calcActualPrice($event, i)">
+                <mat-option *ngFor="let each of filteredItems | async" [value]="each" autoActiveFirstOption >
                   {{each}}
                 </mat-option>
               </mat-autocomplete>
             </mat-form-field>
             <mat-form-field color="accent" class="col-md-3">
+              <mat-label>Quantity Type</mat-label>
+              <mat-select formControlName="qtyType" name="qtyType" (selectionChange)="onSelectQtyType($event, i)" >
+                <mat-option value="Congos">Congos</mat-option>
+                <mat-option value="Cups">Cups</mat-option>
+                <mat-option value="Pieces">Pieces</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field color="accent" class="col-md-2">
               <mat-label>Quantity</mat-label>
               <input matInput name="qty" formControlName="qty" (keyup)="onQtyChange(i)" >
             </mat-form-field>
@@ -41,7 +49,7 @@
             </mat-form-field>
             <mat-form-field color="accent" class="col-md-3" floatLabel="always">
               <mat-label>Paid Amount</mat-label>
-              <input type="number" matInput placeholder="0" class="example-right-align" name="paidAmount" formControlName="paidAmount" >
+              <input type="number" matInput placeholder="0" class="example-right-align" name="paidAmount" formControlName="paidAmount" (keyup)="calcCreditAmount(i)" >
               <span matPrefix>$&nbsp;</span>
               <span matSuffix>.00</span>
             </mat-form-field>
@@ -56,7 +64,7 @@
       </div>
 
       <div class="d-flex">
-        <button type="submit" mat-raised-button color="accent" class="mx-1"  >Add Sales</button>
+        <button type="submit" mat-raised-button color="accent" class="mx-1" [disabled]="isLoading"  >Add Sales</button>
         <button type="button" mat-mini-fab color="accent" class="mx-1" (click)="addMoreItem()" >
           <mat-icon>add</mat-icon>
         </button>
