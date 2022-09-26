@@ -1,0 +1,27 @@
+<section>
+  <p class="display-4">Sales History</p>
+  <div class="px-4">
+    <p class="h6">Today</p>
+    <div class="border-bottom mb-2 border-warning" *ngFor="let i = index; let each of arrayOfSales">
+      <p>Customer: <span class="font-weight-bold">{{each.customerName}}</span></p>
+      <table class="table table-warning table-responsive-md">
+        <thead>
+          <tr>
+            <th>Commodity</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Amount Paid</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i = index; let item of each.items">
+            <td>{{item.commodityName}}</td>
+            <td>{{item.qty}} {{item.qtyType}}</td>
+            <td>{{item.actualPrice | currency: 'NGN': 'symbol-narrow' }}</td>
+            <td>{{item.paidAmount | currency: 'NGN': 'symbol-narrow' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
