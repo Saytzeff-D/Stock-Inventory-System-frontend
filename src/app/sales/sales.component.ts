@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { map, Observable, startWith } from 'rxjs';
 import { NodeService } from '../services/node.service';
 
@@ -22,7 +23,11 @@ public error:any = ''
 public unitPrice:any = ''
 public isLoading = false
 
-  constructor(private _fb: FormBuilder, public nodeServer: NodeService) { }
+  constructor(
+    private _fb: FormBuilder,
+    public nodeServer: NodeService,
+    public snackbar: MatSnackBar
+  ) { }
 
   get items(){
     return this.salesForm.controls['items'] as FormArray
@@ -116,6 +121,7 @@ public isLoading = false
         if(res.status){
           this.salesForm.reset()
           this.isLoading = false
+          this.snackbar.open('Sales Added successfullly', 'Dismiss')
         }else{
           this.isLoading = false
           this.error = res.message
