@@ -20,7 +20,8 @@ import { AnonymousLoginComponent } from './anonymous-login/anonymous-login.compo
 import { AddPurchasesComponent } from './add-purchases/add-purchases.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment'
+import { environment } from '../environments/environment';
+import { SalesHistoryComponent } from './sales-history/sales-history.component'
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { environment } from '../environments/environment'
     PurchasesComponent,
     SalesComponent,
     AnonymousLoginComponent,
-    AddPurchasesComponent
+    AddPurchasesComponent,
+    SalesHistoryComponent
   ],
   imports: [
     BrowserModule,
