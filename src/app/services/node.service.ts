@@ -23,4 +23,7 @@ export class NodeService {
   addSales(sales:any){
     return this.http.post(`${this.url}sales/addSales`, sales)
   }
+  getSales(){
+    return this.http.get(`${this.url}sales/allSales`)
+  }
 }
